@@ -232,6 +232,7 @@ class SyncContext:
         transformed_records = pre_transform(stream.tap_stream_id, records, bookmark_value)
         sorted_records = sorted(transformed_records, key=lambda x: x[bookmark_column])
         for record in sorted_records:
+            record["advertiser_id"] = advertiser_id
             with Transformer(integer_datetime_fmt=UNIX_MILLISECONDS_INTEGER_DATETIME_PARSING) as transformer:
                 transformed_record = transformer.transform(record, stream.schema.to_dict(),
                                                            metadata.to_map(stream.metadata))
