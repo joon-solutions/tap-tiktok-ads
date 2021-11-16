@@ -126,7 +126,8 @@ def transform_ad_insights_records(records):
     transformed_records = []
     for record in records:
         if 'metrics' in record and 'dimensions' in record:
-            transformed_record = record['metrics'] | record['dimensions']
+            transformed_record = record['metrics'].copy()
+            transformed_record.update(record['dimensions'])
             if 'secondary_goal_result' in transformed_record and transformed_record['secondary_goal_result'] == '-':
                 transformed_record['secondary_goal_result'] = None
             if 'cost_per_secondary_goal_result' in transformed_record and transformed_record[
