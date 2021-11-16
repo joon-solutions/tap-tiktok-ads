@@ -163,12 +163,13 @@ def transform_advertisers_records(records, bookmark_value):
 
 
 def get_bookmark_value(stream_name, bookmark_data, advertiser_id):
+    if not bookmark_data:
+        return None
     if stream_name in ENDPOINT_ADVERTISERS:
         return bookmark_data
-    elif (stream_name in ENDPOINT_INSIGHTS or stream_name in ENDPOINT_AD_MANAGEMENT) and advertiser_id in bookmark_data:
+    if (stream_name in ENDPOINT_INSIGHTS or stream_name in ENDPOINT_AD_MANAGEMENT) and advertiser_id in bookmark_data:
         return bookmark_data[advertiser_id]
-    else:
-        return None
+    return None
 
 
 class SyncContext:
